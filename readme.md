@@ -1,3 +1,3 @@
 #blog project
 
-blog project made using ms sql database, fastapi backend, react ts frontend
+blog project made using MS SQL DB, Fastapi backend, React TS frontend
