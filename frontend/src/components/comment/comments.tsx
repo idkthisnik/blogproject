@@ -89,10 +89,7 @@ const CommentsList: React.FC<CommentProps> = ({user_id, post_id}) => {
 
   const commentRatedByUser = async (comment: Comment, userId: number) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/commentRatedByUser`, {
-        comment_id: comment.comment_id,
-        user_id: userId,
-      });
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/commentRatedByUser?comment_id=${comment.comment_id}&user_id=${userId}`)
       
       setCommentRatings(prevCommentRatings => [
         ...prevCommentRatings,

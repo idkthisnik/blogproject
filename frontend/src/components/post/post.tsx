@@ -74,10 +74,7 @@ const OnePost: React.FC<PostProps> = ({user_id, post_id, onError, setPostDeleted
 
   const postRatedByUser = async (post: Post, userId: number) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/postRatedByUser`, {
-        post_id: post.post_id,
-        user_id: userId,
-      });
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/postRatedByUser?post_id=${post.post_id}&user_id=${userId}`)
       
       setPostRating([{
           postId: post.post_id,

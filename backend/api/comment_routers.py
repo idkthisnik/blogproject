@@ -1,5 +1,6 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from fastapi_pagination import Page, paginate
+from typing import Annotated
 
 from backend.logic.models.comment import Comment
 from backend.logic.services.comment_service import CommentService
@@ -26,8 +27,8 @@ def create_comment(data: CreateCommentRequest):
     result = comment_service.create_comment(data)
     return result
 
-@router.post('/posts/{post_id}/commentRatedByUser')
-def get_comment_rated_by_user(user_comment_info: GetCommentRatedByUser):
+@router.get('/posts/{post_id}/commentRatedByUser')
+def get_comment_rated_by_user(user_comment_info: Annotated[GetCommentRatedByUser, Depends()]):
     result = comment_service.comment_rated_by_user(user_comment_info)
     return result
 

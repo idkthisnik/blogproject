@@ -1,5 +1,6 @@
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
 from fastapi_pagination import Page, paginate
+from typing import Annotated
 
 from backend.logic.models.post import Post
 from backend.logic.services.post_service import PostService
@@ -38,8 +39,8 @@ def create_post(data: CreatePostRequest):
     result = post_service.create_the_post(data)
     return result
 
-@router.post('/posts/{post_id}/postRatedByUser')
-def get_post_rated_by_user(user_post_info: GetPostRatedByUser):
+@router.get('/posts/{post_id}/postRatedByUser')
+def get_post_rated_by_user(user_post_info: Annotated[GetPostRatedByUser, Depends()]):
     result = post_service.post_rated_by_user(user_post_info)
     return result
 
