@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
 
-
 class Comment(BaseModel):
     comment_id: int
     creator_id: int

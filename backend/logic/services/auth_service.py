@@ -1,40 +1,49 @@
-from backend.database.crud.user_crud import UserCrud
-from backend.logic.dtos.responses.auth.registration_request import RegistrationRequestToDB, LoginRequestToDB
 from .hash_service import HashService
+from backend.database.crud.user_crud import UserCrud
+from backend.logic.dtos.requests.auth.auth_request import (
+    RegistrationRequestToDB,
+    LoginRequestToDB,
+    RegistrationRequest,
+    LoginRequest
+)
 
-hash_service = HashService()
-user_crud = UserCrud()
+
+h_s = HashService()
+u_c = UserCrud()
 
 class AuthService():
-    def registr_user(self, info):
-        if user_crud.check_user_in_db(info.username):
+    def registr_user(self, info: RegistrationRequest) -> int:
+        if u_c.check_user_existence(info.username):
             return None
         else:
-            salt = hash_service.generate_salt()
-            hashed_password = hash_service.password_hasher(info.entered_password, salt)
-            updated_info = RegistrationRequestToDB(username=info.username,
-                                                    password=hashed_password,
-                                                    email=info.email,
-                                                    salt=salt.decode()
+            salt = h_s.generate_salt()
+            hashed_password = h_s.password_hasher(info.entered_password, salt)
+            updated_info = RegistrationRequestToDB(
+                username=info.username,
+                password=hashed_password,
+                email=info.email,
+                salt=salt.decode()
             )
-            return user_crud.create_user(updated_info)
+            return u_c.create_user(updated_info)
     
-    def check_user(self, info):
-        user_salt = user_crud.get_salt(info.username)
+    def check_user(self, info: LoginRequest) -> bool:
+        user_salt = u_c.get_salt(info.username)
         if user_salt:
             user_salt = user_salt.encode()
-            hashed_password = hash_service.password_hasher(info.entered_password, user_salt)
-            updated_info = LoginRequestToDB(username=info.username,
-                                                    password=hashed_password)
-            return user_crud.check_user(updated_info)
+            hashed_password = h_s.password_hasher(info.entered_password, user_salt)
+            updated_info = LoginRequestToDB(
+                username=info.username,
+                password=hashed_password
+                )
+            return u_c.auth_user(updated_info)
         else:
             return False
     
-    def get_userId(self, login):
-        return user_crud.get_user_id_by_login(login)
+    def get_user_id(self, login: str) -> int:
+        return u_c.get_user_id_by_login(login)
      
-    def add_refresh_to_db(self, user_id, refresh):
-        return user_crud.add_refresh(user_id, refresh) 
+    def add_refresh_to_db(self, user_id: int, refresh: str) -> None:
+        return u_c.add_refresh(user_id, refresh) 
     
-    def delete_refresh_from_db(self, user_id):
-        return user_crud.delete_refresh(user_id)
+    def delete_refresh_from_db(self, user_id: int) -> None:
+        return u_c.delete_refresh(user_id)

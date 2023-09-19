@@ -1,15 +1,22 @@
-from fastapi.responses import JSONResponse
 from fastapi import APIRouter
 from fastapi import HTTPException
+from fastapi.responses import JSONResponse
+
 from backend.logic.services.auth_service import AuthService
-from backend.logic.dtos.requests.auth.auth_request import RegistrationRequest, LoginRequest, RefreshRequest, LogoutRequest
+from backend.logic.dtos.requests.auth.auth_request import (
+    RegistrationRequest,
+    LoginRequest,
+    RefreshRequest,
+    LogoutRequest
+)
 from backend.auth.auth_handler import signJWT, decodeJWT
 
 auth_service = AuthService()
 router = APIRouter()
 
+
 @router.post('/registration')
-def registrate_user(info: RegistrationRequest):
+def registrate_user(info: RegistrationRequest) -> JSONResponse:
     reg_request = auth_service.registr_user(info)
     if reg_request == None:
         raise HTTPException(status_code=403, detail="There is a user already created with this login!")
@@ -24,9 +31,9 @@ def registrate_user(info: RegistrationRequest):
 
 
 @router.post('/login')
-def user_login(user: LoginRequest):
+def user_login(user: LoginRequest) -> JSONResponse:
     if auth_service.check_user(user):
-        user_id = auth_service.get_userId(user.username)
+        user_id = auth_service.get_user_id(user.username)
         
         access_token = signJWT(user_id, 600)
         refresh_token = signJWT(user_id, 3600)
@@ -39,7 +46,7 @@ def user_login(user: LoginRequest):
 
 
 @router.post('/refresh')
-def refresh_token(data: RefreshRequest):
+def refresh_token(data: RefreshRequest) -> JSONResponse:
     refresh_token = data.refresh_token
     if decodeJWT(refresh_token):
         access_token = signJWT(data.user_id, 30)
@@ -49,6 +56,6 @@ def refresh_token(data: RefreshRequest):
         return JSONResponse(content={'access_token': None})   
     
 @router.post('/logout')
-def logout(data: LogoutRequest):
+def logout(data: LogoutRequest) -> None:
     auth_service.delete_refresh_from_db(data.user_id)
     

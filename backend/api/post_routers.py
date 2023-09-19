@@ -1,15 +1,16 @@
-from fastapi import APIRouter, HTTPException, Query, Depends
-from fastapi_pagination import Page, paginate
 from typing import Annotated
+from fastapi_pagination import Page, paginate
+from fastapi import APIRouter, HTTPException, Query, Depends
 
 from backend.logic.models.post import Post
 from backend.logic.services.post_service import PostService
-from backend.logic.dtos.requests.rating.get_post_rated_by_user_request import GetPostRatedByUser
-from backend.logic.dtos.responses.post.posts_response import PostResponse, PostsResponse
+from backend.logic.dtos.responses.post.posts_response import PostResponse
 from backend.logic.dtos.requests.rating.ratepost_request import RatePostRequest
 from backend.logic.dtos.requests.post.createpost_request import CreatePostRequest
 from backend.logic.dtos.requests.post.updatepost_request import UpdatePostRequest
 from backend.logic.dtos.requests.post.deletepost_request import DeletePostRequest
+from backend.logic.dtos.requests.rating.get_post_rated_by_user_request import GetPostRatedByUser
+from backend.logic.dtos.responses.rating.post_rated_by_user_response import PostRatedByUserResponse
 
 
 router = APIRouter()
@@ -17,7 +18,7 @@ router = APIRouter()
 post_service = PostService()
 
 @router.get('/posts/{post_id}/', response_model=PostResponse)
-def get_post(post_id):
+def get_post(post_id: int) -> PostResponse:
     result = post_service.get_post(post_id)
     if not result:
         raise HTTPException(status_code=404, detail='Oops! Post not found!')
@@ -31,30 +32,31 @@ def get_posts(sorted: str = Query(default=None, description='Sorting criteria'))
         raise HTTPException(status_code=404, detail='Oops! Posts not found!')
     return paginate(result)
 
-
 @router.post('/posts/create')
-def create_post(data: CreatePostRequest):
+def create_post(data: CreatePostRequest) -> dict:
     if len(data.post_text) == 0:
         raise HTTPException(status_code=422, detail="Comment can not be empty object :D") 
-    result = post_service.create_the_post(data)
+    result = post_service.create_post(data)
     return result
 
 @router.get('/posts/{post_id}/postRatedByUser')
-def get_post_rated_by_user(user_post_info: Annotated[GetPostRatedByUser, Depends()]):
+def get_post_rated_by_user(
+        user_post_info: Annotated[GetPostRatedByUser, Depends()]
+    ) -> PostRatedByUserResponse:
     result = post_service.post_rated_by_user(user_post_info)
     return result
 
 @router.post('/posts/{post_id}/rate')
-def rate_post(rate_info: RatePostRequest):
+def rate_post(rate_info: RatePostRequest) -> bool:
     result = post_service.rate_post(rate_info)
     return result
 
 @router.put('/posts/{post_id}/update')
-def update_post(info: UpdatePostRequest):
+def update_post(info: UpdatePostRequest) -> None:
     result = post_service.update_my_post(info)
     return result
 
 @router.delete('/posts/{post_id}/delete')
-def delete_post(info: DeletePostRequest):
+def delete_post(info: DeletePostRequest) -> str:
     result = post_service.delete_my_post(info)
     return result

@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
 
-
 class Post(BaseModel):
     post_id: int
     post_creator_id: int 

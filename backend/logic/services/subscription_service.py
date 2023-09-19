@@ -1,33 +1,31 @@
-from backend.database.crud.subscriptions_crud import SubscriptionsCrud
 from backend.database.crud.user_crud import UserCrud
+from backend.database.crud.subscriptions_crud import SubscriptionsCrud
+from backend.logic.dtos.requests.subscriptions.follow_unfollow_request import FollowUnfollowRequest
 
-users_crud = UserCrud()
-subscriptions_crud = SubscriptionsCrud()
+u_c = UserCrud()
+s_c = SubscriptionsCrud()
 
 
 class SubscriptionsService():
-    def subscribe_unsubscribe(self, data):
-        if subscriptions_crud.get_subscriptions_existence(data):
-            subscriptions_crud.delete_subscription(data)
+    def subscribe_unsubscribe(self, data: FollowUnfollowRequest) -> bool:
+        if s_c.get_subscription_existence(data):
+            s_c.delete_subscription(data)
         else:
-            subscriptions_crud.create_subscription(data)
+            s_c.create_subscription(data)
     
-    def is_followed(self, data):
-        return subscriptions_crud.get_subscriptions_existence(data)
+    def is_followed(self, data: FollowUnfollowRequest) -> bool:
+        return s_c.get_subscription_existence(data)
     
-    
-    
-    def get_subscribers(self, user_id):
+    def get_subscribers(self, user_id: int) -> dict:
         result = dict()
-        subscribers_id = subscriptions_crud.get_subscriber_list(user_id)
+        subscribers_id = s_c.get_subscribers(user_id)
         for id in subscribers_id:
-            result[id] = users_crud.get_login_by_id(id)
+            result[id] = u_c.get_login_by_id(id)
         return result
     
-    
-    def get_subscriptions(self, user_id):
+    def get_subscriptions(self, user_id: int) -> dict:
         result = dict()
-        subscriptions_id = subscriptions_crud.get_subscriptions_list(user_id)
+        subscriptions_id = s_c.get_subscriptions(user_id)
         for id in subscriptions_id:
-            result[id] = users_crud.get_login_by_id(id)
+            result[id] = u_c.get_login_by_id(id)
         return result

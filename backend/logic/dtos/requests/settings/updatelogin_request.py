@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+
 class UpdateLoginRequest(BaseModel):
     login: str
     password: str

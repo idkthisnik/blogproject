@@ -1,19 +1,18 @@
+import jwt
 import time
 from starlette.responses import JSONResponse
-from backend.config import JWT_ALGORITHM, JWT_SECRET
-import jwt
 
+from backend.config import JWT_ALGORITHM, JWT_SECRET
 from backend.database.crud.user_crud import UserCrud
 
 user_crud = UserCrud()
 
 
-def token_response(token: str):
+def token_response(token: str) -> dict:
     return {
         "access_token": token
     }
-    
-    
+        
 def signJWT(userId: str, expire: int) -> JSONResponse:
     
     payload = {
@@ -22,7 +21,6 @@ def signJWT(userId: str, expire: int) -> JSONResponse:
     }
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
     return token
-
 
 def decodeJWT(token: str) -> dict:
     try:
