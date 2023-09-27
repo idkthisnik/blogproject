@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const isFollowed = async (userId: number, subscriberId: number) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_ADRESS}/subscription/follow-unfollow/is-followed`, {
+      const response = await axios.post(`${process.env.REACT_APP_FASTAPI_DOMAIN}/subscription/follow-unfollow/is-followed`, {
         user_id: userId,
         subscriber_id: subscriberId,
       });
@@ -22,7 +22,7 @@ export const handleFollowUnfollow = async (
     setProfileinfo: React.Dispatch<React.SetStateAction<ProfileInfoInterface | null>>
   ) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_ADRESS}/subscription/follow-unfollow`, {
+      const response = await axios.post(`${process.env.REACT_APP_FASTAPI_DOMAIN}/subscription/follow-unfollow`, {
         user_id: userId, 
         subscriber_id: subscriberId,
       });

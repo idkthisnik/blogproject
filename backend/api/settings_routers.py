@@ -1,11 +1,11 @@
 from fastapi import HTTPException
 from fastapi import APIRouter
 
-from backend.logic.services.settings_service import SettingsService
-from backend.logic.dtos.requests.settings.updatelogin_request import UpdateLoginRequest
-from backend.logic.dtos.requests.settings.updateemail_request import UpdateEmailRequest
-from backend.logic.dtos.requests.settings.deleteaccount_request import DeleteProfileRequest
-from backend.logic.dtos.requests.settings.updatepassword_request import UpdatePasswordRequest
+from logic.services.settings_service import SettingsService
+from logic.dtos.requests.settings.updatelogin_request import UpdateLoginRequest
+from logic.dtos.requests.settings.updateemail_request import UpdateEmailRequest
+from logic.dtos.requests.settings.deleteaccount_request import DeleteProfileRequest
+from logic.dtos.requests.settings.updatepassword_request import UpdatePasswordRequest
 
 
 settings_service = SettingsService()

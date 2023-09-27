@@ -1,6 +1,6 @@
 from .hash_service import HashService
-from backend.database.crud.user_crud import UserCrud
-from backend.logic.dtos.requests.auth.auth_request import (
+from database.crud.user_crud import UserCrud
+from logic.dtos.requests.auth.auth_request import (
     RegistrationRequestToDB,
     LoginRequestToDB,
     RegistrationRequest,

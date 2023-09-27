@@ -1,8 +1,14 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from backend.config import DATABASE_LOGIN, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_NAME
 
-sql_alchemy_url = f'mssql+pyodbc://{DATABASE_LOGIN}:{DATABASE_PASSWORD}@{DATABASE_HOST}/{DATABASE_NAME}?driver=ODBC+Driver+17+for+SQL+Server'
+server = os.environ['DATABASE_SERVER']
+database = os.environ['DATABASE_NAME']
+username = os.environ['DATABASE_LOGIN']
+password = os.environ['DATABASE_PASSWORD']
+port = os.environ['DATABASE_PORT']
+
+sql_alchemy_url = f"mssql://{username}:{password}@{server}:{port}/{database}?driver=FreeTDS"
 
 engine = create_engine(sql_alchemy_url, echo=False)
 

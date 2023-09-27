@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from backend.logic.services.subscription_service import SubscriptionsService
-from backend.logic.dtos.requests.subscriptions.follow_unfollow_request import FollowUnfollowRequest
+from logic.services.subscription_service import SubscriptionsService
+from logic.dtos.requests.subscriptions.follow_unfollow_request import FollowUnfollowRequest
 
 router = APIRouter()
 

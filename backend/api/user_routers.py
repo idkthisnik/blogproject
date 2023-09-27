@@ -2,8 +2,8 @@ from typing import List
 from fastapi import APIRouter
 from fastapi import HTTPException
 
-from backend.logic.services.userpage_service import UserProfileService
-from backend.logic.dtos.responses.profile.userdata_response import UserDataResponse
+from logic.services.userpage_service import UserProfileService
+from logic.dtos.responses.profile.userdata_response import UserDataResponse
 
 router = APIRouter()
 

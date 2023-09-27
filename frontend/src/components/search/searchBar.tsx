@@ -17,7 +17,7 @@ const SearchBar = () => {
   const getUsers = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/users`);
+      const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/users`);
       setUsers(response.data);
     } catch (error) {
       console.error("Ошибка при запросе пользователей:", error);

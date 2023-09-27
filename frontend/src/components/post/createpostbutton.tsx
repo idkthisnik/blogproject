@@ -26,7 +26,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ userId, changePostsError, setPo
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/create`, {
+            const response = await axios.post(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/create`, {
                 user_id: userId,
                 post_text: postText
             });

@@ -48,7 +48,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ userId, onError }) => {
 
     const SubscribersList = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/subscription/subscribers`, {
+            const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/subscription/subscribers`, {
                 params: {
                     user_id: userId
                 }
@@ -67,7 +67,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ userId, onError }) => {
 
     const SubscriptionsList = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/subscription/subscriptions`, {
+            const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/subscription/subscriptions`, {
                 params: {
                     user_id: userId
                 }
@@ -87,7 +87,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ userId, onError }) => {
 
     const fetchProfileInfo = async () => {
         try {
-            const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/${userId}/data`, {
+            const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/${userId}/data`, {
                 params: {
                     user_id: userId
                 }
@@ -166,7 +166,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ userId, onError }) => {
                             <p  className={`text-red-500 mb-4 ${errMsg ? "" : "hidden"}`} aria-live="assertive">{errMsg}</p>
                             <ul className="grid grid-cols-1 gap-2 mt-4">
                             {Object.entries(subscriptionsList).map(([id, nickname]) => (
-                                <a key={id} href={`${process.env.REACT_APP_ADRESS}/users/${id}`} className="font-bold hover:underline">
+                                <a key={id} href={`${process.env.REACT_APP_DOMAIN}/users/${id}`} className="font-bold hover:underline">
                                     {nickname}
                                 </a>
                             ))}
@@ -185,7 +185,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({ userId, onError }) => {
                             <p  className={`text-red-500 mb-4 ${errMsg ? "" : "hidden"}`} aria-live="assertive">{errMsg}</p>
                             <ul className="grid grid-cols-1 gap-2 mt-4">
                             {Object.entries(subscribersList).map(([id, nickname]) => (
-                                <a key={id} href={`${process.env.REACT_APP_ADRESS}/users/${id}`} className="font-bold hover:underline">
+                                <a key={id} href={`${process.env.REACT_APP_DOMAIN}/users/${id}`} className="font-bold hover:underline">
                                     {nickname}
                                 </a>
                             ))}

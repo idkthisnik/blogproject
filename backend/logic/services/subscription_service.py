@@ -1,6 +1,6 @@
-from backend.database.crud.user_crud import UserCrud
-from backend.database.crud.subscriptions_crud import SubscriptionsCrud
-from backend.logic.dtos.requests.subscriptions.follow_unfollow_request import FollowUnfollowRequest
+from database.crud.user_crud import UserCrud
+from database.crud.subscriptions_crud import SubscriptionsCrud
+from logic.dtos.requests.subscriptions.follow_unfollow_request import FollowUnfollowRequest
 
 u_c = UserCrud()
 s_c = SubscriptionsCrud()

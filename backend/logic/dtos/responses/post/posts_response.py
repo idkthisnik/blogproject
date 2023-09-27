@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from backend.logic.models.post import Post
+from logic.models.post import Post
 
 
 class PostsResponse(BaseModel):

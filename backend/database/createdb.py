@@ -1,8 +1,10 @@
+import os
 import sys
-sys.path.insert(0, "D:\projects\\blog")
 
-from backend.database.models import *
-from backend.database.connection import engine
+sys.path.insert(0, os.getcwd())
+
+from database.models import *
+from database.connection import engine, Base
 from sqlalchemy import MetaData
 
 metadata = MetaData()

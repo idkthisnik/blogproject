@@ -52,7 +52,7 @@ const PostList: React.FC<PostProps> = ({posts, handlePostsError, err, postRating
  
   const handleRemovePost = async (userId: number, postId: number) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${postId}/delete`, {
+      const response = await axios.delete(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${postId}/delete`, {
         data: {
           user_id: Number(userId), 
           post_id: Number(postId),
@@ -72,7 +72,7 @@ const PostList: React.FC<PostProps> = ({posts, handlePostsError, err, postRating
 
   const fetchPosts = async (current_page: number) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/?page=${current_page}&size=${size}&sorted=${idToSort}`)
+      const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/?page=${current_page}&size=${size}&sorted=${idToSort}`)
       setPages(response.data.pages);
 
 
@@ -133,7 +133,7 @@ const PostList: React.FC<PostProps> = ({posts, handlePostsError, err, postRating
 
   const postRatedByUser = async (post: Post, userId: number) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post.post_id}/postRatedByUser?post_id=${post.post_id}&user_id=${userId}`)
+      const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${post.post_id}/postRatedByUser?post_id=${post.post_id}&user_id=${userId}`)
       
       setPostRatings(prevPostRatings => [
         ...prevPostRatings,
@@ -173,7 +173,7 @@ const PostList: React.FC<PostProps> = ({posts, handlePostsError, err, postRating
         >
             <div className="flex justify-between">
               <div>
-                <a href={`${process.env.REACT_APP_ADRESS}/users/${post.post_creator_id}`} className="font-bold hover:underline">
+                <a href={`${process.env.REACT_APP_DOMAIN}/users/${post.post_creator_id}`} className="font-bold hover:underline">
                     {post.post_creator}
                 </a>
               </div>
@@ -206,7 +206,7 @@ const PostList: React.FC<PostProps> = ({posts, handlePostsError, err, postRating
               <div className="flex justify-between mt-4">
                 <a 
                   className="text-sm text-gray-500 hover:underline"
-                  href={`${process.env.REACT_APP_ADRESS}/posts/${post.post_id}`}
+                  href={`${process.env.REACT_APP_DOMAIN}/posts/${post.post_id}`}
                 >
                   {`${post.comments_count} Comments`}
                 </a>

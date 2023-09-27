@@ -1,12 +1,12 @@
 from .hash_service import HashService
-from backend.logic.dtos.requests.settings.updatelogin_request import UpdateLoginRequest
-from backend.logic.dtos.requests.settings.updateemail_request import UpdateEmailRequest
-from backend.logic.dtos.requests.settings.deleteaccount_request import DeleteProfileRequest
-from backend.database.crud.user_crud import (
+from logic.dtos.requests.settings.updatelogin_request import UpdateLoginRequest
+from logic.dtos.requests.settings.updateemail_request import UpdateEmailRequest
+from logic.dtos.requests.settings.deleteaccount_request import DeleteProfileRequest
+from database.crud.user_crud import (
     UserCrud,
     LoginPasswordVerify
 )
-from backend.logic.dtos.requests.settings.updatepassword_request import (
+from logic.dtos.requests.settings.updatepassword_request import (
     UpdatePasswordRequestToDB,
     UpdatePasswordRequest
 )

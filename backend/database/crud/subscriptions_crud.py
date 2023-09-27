@@ -1,8 +1,8 @@
 from typing import List
 
-from backend.database.models import Subscriptions
-from backend.database.session_decorator import Sessioner
-from backend.logic.dtos.requests.subscriptions.follow_unfollow_request import FollowUnfollowRequest
+from database.models import Subscriptions
+from database.session_decorator import Sessioner
+from logic.dtos.requests.subscriptions.follow_unfollow_request import FollowUnfollowRequest
 
 
 

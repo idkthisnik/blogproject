@@ -2,15 +2,15 @@ from typing import Annotated
 from fastapi_pagination import Page, paginate
 from fastapi import APIRouter, HTTPException, Query, Depends
 
-from backend.logic.models.post import Post
-from backend.logic.services.post_service import PostService
-from backend.logic.dtos.responses.post.posts_response import PostResponse
-from backend.logic.dtos.requests.rating.ratepost_request import RatePostRequest
-from backend.logic.dtos.requests.post.createpost_request import CreatePostRequest
-from backend.logic.dtos.requests.post.updatepost_request import UpdatePostRequest
-from backend.logic.dtos.requests.post.deletepost_request import DeletePostRequest
-from backend.logic.dtos.requests.rating.get_post_rated_by_user_request import GetPostRatedByUser
-from backend.logic.dtos.responses.rating.post_rated_by_user_response import PostRatedByUserResponse
+from logic.models.post import Post
+from logic.services.post_service import PostService
+from logic.dtos.responses.post.posts_response import PostResponse
+from logic.dtos.requests.rating.ratepost_request import RatePostRequest
+from logic.dtos.requests.post.createpost_request import CreatePostRequest
+from logic.dtos.requests.post.updatepost_request import UpdatePostRequest
+from logic.dtos.requests.post.deletepost_request import DeletePostRequest
+from logic.dtos.requests.rating.get_post_rated_by_user_request import GetPostRatedByUser
+from logic.dtos.responses.rating.post_rated_by_user_response import PostRatedByUserResponse
 
 
 router = APIRouter()

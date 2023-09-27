@@ -19,7 +19,7 @@ export const handleRating = (
   };
 
 
-  axios.post(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${postId}/rate`, rateInfo)
+  axios.post(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${postId}/rate`, rateInfo)
     .then(response => {
       const updatedPosts = posts.map(post => {
         if (post.post_id === postId) {

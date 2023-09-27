@@ -2,11 +2,11 @@ from typing import List
 from sqlalchemy import desc
 from datetime import datetime
 
-from backend.database.models import Comments
-from backend.database.session_decorator import Sessioner
-from backend.logic.dtos.requests.comment.createcomment_request import CreateCommentRequest
-from backend.logic.dtos.requests.comment.updatecomment_request import UpdateCommentRequest
-from backend.logic.dtos.requests.comment.deletecomment_request import DeleteCommentRequest
+from database.models import Comments
+from database.session_decorator import Sessioner
+from logic.dtos.requests.comment.createcomment_request import CreateCommentRequest
+from logic.dtos.requests.comment.updatecomment_request import UpdateCommentRequest
+from logic.dtos.requests.comment.deletecomment_request import DeleteCommentRequest
 
 
 

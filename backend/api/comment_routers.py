@@ -2,14 +2,14 @@ from fastapi import APIRouter, HTTPException, Depends
 from fastapi_pagination import Page, paginate
 from typing import Annotated, Any
 
-from backend.logic.models.comment import Comment
-from backend.logic.services.comment_service import CommentService
-from backend.logic.dtos.requests.rating.ratecomment_request import RateCommentRequest
-from backend.logic.dtos.requests.comment.deletecomment_request import DeleteCommentRequest
-from backend.logic.dtos.requests.comment.updatecomment_request import UpdateCommentRequest
-from backend.logic.dtos.requests.comment.createcomment_request import CreateCommentRequest
-from backend.logic.dtos.requests.rating.get_comment_rated_by_user_request import GetCommentRatedByUser
-from backend.logic.dtos.responses.rating.comment_rated_by_user_response import CommentRatedByUserResponse
+from logic.models.comment import Comment
+from logic.services.comment_service import CommentService
+from logic.dtos.requests.rating.ratecomment_request import RateCommentRequest
+from logic.dtos.requests.comment.deletecomment_request import DeleteCommentRequest
+from logic.dtos.requests.comment.updatecomment_request import UpdateCommentRequest
+from logic.dtos.requests.comment.createcomment_request import CreateCommentRequest
+from logic.dtos.requests.rating.get_comment_rated_by_user_request import GetCommentRatedByUser
+from logic.dtos.responses.rating.comment_rated_by_user_response import CommentRatedByUserResponse
 
 
 router = APIRouter()

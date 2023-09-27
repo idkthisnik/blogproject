@@ -1,0 +1,64 @@
+version: '3.3'
+
+services:
+  mssql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: mssql-server
+    networks:
+      - projectnetwork
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    environment:
+      - ACCEPT_EULA="Y"
+      - MSSQL_SA_PASSWORD=${DATABASE_PASSWORD}
+      - MSSQL_TCP_PORT=${DATABASE_PORT}
+    volumes:
+        - "./backend/database/volumes:/var/opt/mssql/data"
+  
+  python:
+    build:
+      context: .
+      dockerfile: ./docker/python/Dockerfile
+    container_name: backend-python
+    ports:
+      - 14555:14555
+    networks:
+      - projectnetwork
+    environment:
+      - DATABASE_LOGIN=${DATABASE_LOGIN}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_SERVER=${DATABASE_SERVER}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - FASTAPI_DOMAIN=${FASTAPI_DOMAIN}
+      - REACT_DOMAIN=${REACT_DOMAIN}
+      - REACT_LOCALHOST_DOMAIN=${REACT_LOCALHOST_DOMAIN}
+      - PEPPER=${PEPPER}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_ALGORITHM=${JWT_ALGORITHM}
+    restart: always
+    depends_on:
+      - mssql
+  
+  react:
+    build:
+      context: .
+      dockerfile: ./docker/react/Dockerfile
+    container_name: frontend-react
+    networks:
+      - projectnetwork
+    ports: 
+      - ${REACT_PORT}:${REACT_PORT}
+    environment:
+      - REACT_APP_FASTAPI_DOMAIN=${FASTAPI_DOMAIN}
+      - REACT_APP_DOMAIN=${REACT_DOMAIN}
+      - REACT_APP_PORT=${REACT_PORT}
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mssql
+      - python
+
+networks:
+  projectnetwork:
+    driver: bridge

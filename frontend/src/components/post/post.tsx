@@ -28,7 +28,7 @@ const OnePost: React.FC<PostProps> = ({user_id, post_id, onError, setPostDeleted
 
   const fetchPost = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/`);
+      const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${post_id}/`);
       const userId = user_id;
       
       const post = response.data.post;
@@ -54,7 +54,7 @@ const OnePost: React.FC<PostProps> = ({user_id, post_id, onError, setPostDeleted
 
   const handleRemovePost = async (userId: number, postId: number) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${postId}/delete`, {
+      const response = await axios.delete(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${postId}/delete`, {
         data: {
           user_id: Number(userId), 
           post_id: Number(postId),
@@ -74,7 +74,7 @@ const OnePost: React.FC<PostProps> = ({user_id, post_id, onError, setPostDeleted
 
   const postRatedByUser = async (post: Post, userId: number) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/postRatedByUser?post_id=${post.post_id}&user_id=${userId}`)
+      const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${post_id}/postRatedByUser?post_id=${post.post_id}&user_id=${userId}`)
       
       setPostRating([{
           postId: post.post_id,
@@ -112,7 +112,7 @@ const OnePost: React.FC<PostProps> = ({user_id, post_id, onError, setPostDeleted
             >
                 <div className="flex justify-between">
                 <div>
-                    <a href={`${process.env.REACT_APP_ADRESS}/users/${post.post_creator_id}`} className="font-bold hover:underline">
+                    <a href={`${process.env.REACT_APP_DOMAIN}/users/${post.post_creator_id}`} className="font-bold hover:underline">
                         {post.post_creator}
                     </a>
                 </div>

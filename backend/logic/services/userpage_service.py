@@ -1,10 +1,10 @@
 from typing import List
 
-from backend.database.crud.user_crud import UserCrud
-from backend.database.crud.postsrating_crud import PostsRatingCrud
-from backend.database.crud.subscriptions_crud import SubscriptionsCrud
-from backend.database.crud.commentsrating_crud import CommentsRatingCrud
-from backend.logic.dtos.responses.profile.userdata_response import UserDataResponse
+from database.crud.user_crud import UserCrud
+from database.crud.postsrating_crud import PostsRatingCrud
+from database.crud.subscriptions_crud import SubscriptionsCrud
+from database.crud.commentsrating_crud import CommentsRatingCrud
+from logic.dtos.responses.profile.userdata_response import UserDataResponse
 
 
 s_c = SubscriptionsCrud()

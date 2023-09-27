@@ -50,7 +50,7 @@ const CommentsList: React.FC<CommentProps> = ({user_id, post_id}) => {
 
   const fetchComments = async (current_page: number) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/comments?page=${current_page}&size=${size}`);
+      const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${post_id}/comments?page=${current_page}&size=${size}`);
       const userId = user_id;
 
       setPages(response.data.pages);
@@ -73,7 +73,7 @@ const CommentsList: React.FC<CommentProps> = ({user_id, post_id}) => {
 
   const handleRemoveComment = async (userId: number, commentId: number) => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/${commentId}`, {
+      const response = await axios.delete(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${post_id}/${commentId}`, {
         data: {
           user_id: Number(userId), 
           comment_id: Number(commentId),
@@ -89,7 +89,7 @@ const CommentsList: React.FC<CommentProps> = ({user_id, post_id}) => {
 
   const commentRatedByUser = async (comment: Comment, userId: number) => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${post_id}/commentRatedByUser?comment_id=${comment.comment_id}&user_id=${userId}`)
+      const response = await axios.get(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${post_id}/commentRatedByUser?comment_id=${comment.comment_id}&user_id=${userId}`)
       
       setCommentRatings(prevCommentRatings => [
         ...prevCommentRatings,
@@ -141,7 +141,7 @@ const CommentsList: React.FC<CommentProps> = ({user_id, post_id}) => {
         >
             <div className="flex justify-between">
               <div>
-                <a href={`${process.env.REACT_APP_ADRESS}/users/${comment.creator_id}`} className="font-bold hover:underline">
+                <a href={`${process.env.REACT_APP_DOMAIN}/users/${comment.creator_id}`} className="font-bold hover:underline">
                     {comment.comment_creator}
                 </a>
               </div>

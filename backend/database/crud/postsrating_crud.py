@@ -1,6 +1,6 @@
-from backend.database.models import RatingPosts
-from backend.database.session_decorator import Sessioner 
-from backend.logic.dtos.requests.rating.ratepost_request import RatePostRequest
+from database.models import RatingPosts
+from database.session_decorator import Sessioner 
+from logic.dtos.requests.rating.ratepost_request import RatePostRequest
 
 
 

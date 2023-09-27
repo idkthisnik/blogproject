@@ -23,7 +23,7 @@ const UpdatePost: React.FC<UpdatePostProps> = ({ userId, postId, setPosts}) => {
 
       const handleUpdatePost = async () => {
         try {
-            const response = await axios.put(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${postId}/update`, {
+            const response = await axios.put(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${postId}/update`, {
                 user_id: Number(userId), 
                 post_id: Number(postId),
                 new_text: postText 

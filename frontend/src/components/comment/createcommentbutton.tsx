@@ -26,7 +26,7 @@ const CreateComment: React.FC<CreateCommentProps> = ({ userId, postId, setCommen
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${postId}/create_comment`, {
+            const response = await axios.post(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${postId}/create_comment`, {
                 user_id: userId,
                 post_id: postId,
                 comment_text: commentText

@@ -2,14 +2,14 @@ from fastapi import APIRouter
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
 
-from backend.logic.services.auth_service import AuthService
-from backend.logic.dtos.requests.auth.auth_request import (
+from logic.services.auth_service import AuthService
+from logic.dtos.requests.auth.auth_request import (
     RegistrationRequest,
     LoginRequest,
     RefreshRequest,
     LogoutRequest
 )
-from backend.auth.auth_handler import signJWT, decodeJWT
+from auth.auth_handler import signJWT, decodeJWT
 
 auth_service = AuthService()
 router = APIRouter()

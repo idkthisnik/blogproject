@@ -1,10 +1,10 @@
 from sqlalchemy import desc
 from datetime import datetime
 
-from backend.database.models import Posts
-from backend.database.session_decorator import Sessioner
-from backend.logic.dtos.requests.post.createpost_request import CreatePostRequest
-from backend.logic.dtos.requests.post.updatepost_request import UpdatePostRequest
+from database.models import Posts
+from database.session_decorator import Sessioner
+from logic.dtos.requests.post.createpost_request import CreatePostRequest
+from logic.dtos.requests.post.updatepost_request import UpdatePostRequest
 
 
 

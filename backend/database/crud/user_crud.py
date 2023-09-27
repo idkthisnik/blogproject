@@ -1,12 +1,12 @@
 from typing import List
 
-from backend.database.models import Users
-from backend.database.session_decorator import Sessioner
-from backend.logic.dtos.requests.settings.updatelogin_request import UpdateLoginRequest
-from backend.logic.dtos.requests.settings.updateemail_request import UpdateEmailRequest
-from backend.logic.dtos.requests.settings.deleteaccount_request import DeleteProfileRequest
-from backend.logic.dtos.requests.settings.updatepassword_request import UpdatePasswordRequestToDB
-from backend.logic.dtos.requests.auth.auth_request import LoginRequestToDB, RegistrationRequestToDB
+from database.models import Users
+from database.session_decorator import Sessioner
+from logic.dtos.requests.settings.updatelogin_request import UpdateLoginRequest
+from logic.dtos.requests.settings.updateemail_request import UpdateEmailRequest
+from logic.dtos.requests.settings.deleteaccount_request import DeleteProfileRequest
+from logic.dtos.requests.settings.updatepassword_request import UpdatePasswordRequestToDB
+from logic.dtos.requests.auth.auth_request import LoginRequestToDB, RegistrationRequestToDB
 
    
 

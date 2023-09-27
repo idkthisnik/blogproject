@@ -5,7 +5,7 @@ import { RootState } from '../store'
 
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BACKEND_ADRESS,
+    baseUrl: process.env.REACT_APP_FASTAPI_DOMAIN,
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = (getState() as RootState).auth.token

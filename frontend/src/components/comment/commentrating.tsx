@@ -20,7 +20,7 @@ export const handleRating = (
     rating_value: ratingValue
   };
 
-  axios.post(`${process.env.REACT_APP_BACKEND_ADRESS}/posts/${postId}/${commentId}`, rateInfo)
+  axios.post(`${process.env.REACT_APP_FASTAPI_DOMAIN}/posts/${postId}/${commentId}`, rateInfo)
     .then(response => {
       const updatedComments = comments.map(comment => {
         if (comment.comment_id === commentId) {

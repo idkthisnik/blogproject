@@ -1,18 +1,18 @@
-from backend.logic.models.post import Post
-from backend.database.crud.posts_crud import PostsCrud
-from backend.database.crud.user_crud import UserCrud
-from backend.database.crud.comments_crud import CommentsCrud
-from backend.database.crud.postsrating_crud import PostsRatingCrud
-from backend.database.crud.commentsrating_crud import CommentsRatingCrud
-from backend.database.crud.subscriptions_crud import SubscriptionsCrud
+from logic.models.post import Post
+from database.crud.posts_crud import PostsCrud
+from database.crud.user_crud import UserCrud
+from database.crud.comments_crud import CommentsCrud
+from database.crud.postsrating_crud import PostsRatingCrud
+from database.crud.commentsrating_crud import CommentsRatingCrud
+from database.crud.subscriptions_crud import SubscriptionsCrud
 
-from backend.logic.dtos.requests.rating.ratepost_request import RatePostRequest
-from backend.logic.dtos.requests.post.createpost_request import CreatePostRequest
-from backend.logic.dtos.requests.post.updatepost_request import UpdatePostRequest
-from backend.logic.dtos.requests.post.deletepost_request import DeletePostRequest
-from backend.logic.dtos.responses.post.posts_response import PostResponse, PostsResponse
-from backend.logic.dtos.requests.rating.get_post_rated_by_user_request import GetPostRatedByUser
-from backend.logic.dtos.responses.rating.post_rated_by_user_response import PostRatedByUserResponse
+from logic.dtos.requests.rating.ratepost_request import RatePostRequest
+from logic.dtos.requests.post.createpost_request import CreatePostRequest
+from logic.dtos.requests.post.updatepost_request import UpdatePostRequest
+from logic.dtos.requests.post.deletepost_request import DeletePostRequest
+from logic.dtos.responses.post.posts_response import PostResponse, PostsResponse
+from logic.dtos.requests.rating.get_post_rated_by_user_request import GetPostRatedByUser
+from logic.dtos.responses.rating.post_rated_by_user_response import PostRatedByUserResponse
 
 
 s_c = SubscriptionsCrud()

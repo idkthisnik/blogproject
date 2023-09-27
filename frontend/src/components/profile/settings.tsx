@@ -22,7 +22,7 @@ const Settings: React.FC = () => {
 
   const UpdateLogin = async (data: any) => {
     try {
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_ADRESS}/my_profile/settings/change_login`, {
+        const response = await axios.put(`${process.env.REACT_APP_FASTAPI_DOMAIN}/my_profile/settings/change_login`, {
                 login: data.login,
                 password: data.password,
                 new_login: data.newLogin
@@ -49,7 +49,7 @@ const Settings: React.FC = () => {
 
 const UpdatePassword = async (data: any) => {
     try {
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_ADRESS}/my_profile/settings/change_password`, {
+        const response = await axios.put(`${process.env.REACT_APP_FASTAPI_DOMAIN}/my_profile/settings/change_password`, {
                 login: data.login,
                 password: data.password,
                 new_password: data.newPassword
@@ -77,7 +77,7 @@ const UpdatePassword = async (data: any) => {
 
 const UpdateEmail = async (data: any) => {
     try {
-        const response = await axios.put(`${process.env.REACT_APP_BACKEND_ADRESS}/my_profile/settings/change_email`, {
+        const response = await axios.put(`${process.env.REACT_APP_FASTAPI_DOMAIN}/my_profile/settings/change_email`, {
                 login: data.login,
                 password: data.password,
                 new_email: data.newEmail
@@ -104,7 +104,7 @@ const UpdateEmail = async (data: any) => {
 
 const DeleteAccount = async (data: any) => {
     try {
-        const response = await axios.delete(`${process.env.REACT_APP_BACKEND_ADRESS}/my_profile/settings/delete_account`, {
+        const response = await axios.delete(`${process.env.REACT_APP_FASTAPI_DOMAIN}/my_profile/settings/delete_account`, {
             data: {
                 login: data.login,
                 password: data.password

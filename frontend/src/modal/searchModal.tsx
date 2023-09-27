@@ -35,7 +35,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ filteredUsers, setSearchModal
                 {filteredUsers.map((user) => (
                   <a
                     key={user.user_id}
-                    href={`${process.env.REACT_APP_ADRESS}/users/${user.user_id}`}
+                    href={`${process.env.REACT_APP_DOMAIN}/users/${user.user_id}`}
                     className="font-bold hover:underline text-black"
                   >
                     {user.login}
