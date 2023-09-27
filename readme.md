@@ -3,7 +3,7 @@
 blog project made using MS SQL DB, Fastapi backend, React TS frontend
 
 1. Install Docker.
-2. Set up .env file in ./blog directory:
+2. Set up .env file in ./blog directory: <br />
     DATABASE_LOGIN=SA <br />
     #If u want to change password, it must has 8 symbols, at leat 1 lower case, 1 upper case, 1 number and 1 special symbol. <br />
     #If u changing, change it in ./blog/docker/driver/odbc.ini too. <br />
