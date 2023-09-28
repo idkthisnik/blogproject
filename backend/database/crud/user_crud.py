@@ -36,11 +36,14 @@ class UserCrud():
     @Sessioner.dbconnect
     def create_user(self, data: RegistrationRequestToDB, session) -> int:
         session.add(
-            Users(login=data.username,
-                  password=data.password,
-                  email=data.email,
-                  salt=data.salt,
-                  refresh=None)
+            Users(
+                login=data.username,
+                password=data.password,
+                email=data.email,
+                salt=data.salt,
+                refresh=None,
+                profile_image="default.png"
+            )
         )
         return session.query(Users).filter(Users.login==data.username).first().UserID
     
@@ -128,4 +131,17 @@ class UserCrud():
                                 Users.UserID==user_id
                            ).update(
                                {Users.refresh: None}
-        )      
+        )
+                           
+    ####Profile page crud####
+    @Sessioner.dbconnect
+    def get_current_profile_image(self, user_id: int, session) -> str:
+        return session.query(Users).filter(Users.UserID==user_id).first().profile_image
+    
+    @Sessioner.dbconnect
+    def set_new_profile_image(self, data, session) -> None:
+        session.query(Users).filter(
+                                Users.UserID==data.user_id
+                           ).update(
+                               {Users.profile_image: data.profile_image}
+        )

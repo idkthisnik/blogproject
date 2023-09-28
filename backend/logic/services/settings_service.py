@@ -1,7 +1,10 @@
+import os
 from .hash_service import HashService
 from logic.dtos.requests.settings.updatelogin_request import UpdateLoginRequest
 from logic.dtos.requests.settings.updateemail_request import UpdateEmailRequest
 from logic.dtos.requests.settings.deleteaccount_request import DeleteProfileRequest
+from logic.dtos.requests.settings.changeprofilepage_request import ChangeProfilePageRequest
+from logic.dtos.requests.settings.deleteprofileimage_request import DeleteProfilePageRequest
 from database.crud.user_crud import (
     UserCrud,
     LoginPasswordVerify
@@ -100,3 +103,18 @@ class SettingsService():
                 return None
         else: 
             return None
+    
+    def change_profile_image(self, data: ChangeProfilePageRequest):
+        if users_crud.get_current_profile_image(data.user_id) == 'default.png':
+            users_crud.set_new_profile_image(data)
+        else:
+            os.remove('./static/images/' + data.profile_image)
+            users_crud.set_new_profile_image(data)
+            
+    def delete_profile_image(self, data: DeleteProfilePageRequest):
+        if users_crud.get_current_profile_image(data.user_id) == 'default.png':
+            return False
+        else:
+            os.remove('./static/images/' + data.profile_image)
+            new_data = DeleteProfilePageRequest(user_id=data.user_id, profile_image='default.png')
+            users_crud.set_new_profile_image(new_data)

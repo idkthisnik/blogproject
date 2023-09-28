@@ -12,17 +12,18 @@ class Users(Base):
     email = Column(String)
     refresh = Column(String(200))
     salt = Column(String(200))
+    profile_image = Column(String(40))
     post = relationship('Posts')
     comment = relationship('Comments')
     
     
-    def __init__(self, login, password, email, refresh, salt):
+    def __init__(self, login, password, email, refresh, salt, profile_image):
         self.login = login
         self.password = password
         self.email = email
         self.refresh = refresh
         self.salt = salt
-
+        self.profile_image = profile_image
 
 class Posts(Base):
     __tablename__ = 'Posts'

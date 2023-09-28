@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 export interface MyProfileInfo {
     login: string;
     email: string;
+    profile_page: string;
     rating: number;
     subscriptions: number;
     subscribers: number;

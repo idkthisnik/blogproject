@@ -1,6 +1,7 @@
 import os
 import sys
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi_pagination import add_pagination
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination.utils import disable_installed_extensions_check
@@ -20,6 +21,8 @@ from api.settings_routers import router as settings_router
 disable_installed_extensions_check()
 
 app = FastAPI(title='Blog')
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 add_pagination(app)
 

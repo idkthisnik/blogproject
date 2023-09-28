@@ -31,7 +31,7 @@ def decodeJWT(token: str) -> dict:
         decoded_token = jwt.decode(
             token,
             os.environ['JWT_SECRET'],
-            algorithms=os.environ['JWT_ALGORITHM']
+            algorithm=os.environ['JWT_ALGORITHM']
         )
         return decoded_token if decoded_token["expires"] >= time.time() else None
     except:
