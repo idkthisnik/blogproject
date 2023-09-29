@@ -19,14 +19,22 @@ router = APIRouter()
 def registrate_user(info: RegistrationRequest) -> JSONResponse:
     reg_request = auth_service.registr_user(info)
     if reg_request == None:
-        raise HTTPException(status_code=403, detail="There is a user already created with this login!")
+        raise HTTPException(
+            status_code=403,
+            detail="There is a user already created with this login!"
+        )
     else:
         user_id = reg_request
         access_token = signJWT(user_id, 600)
         refresh_token = signJWT(user_id, 3600)
         auth_service.add_refresh_to_db(user_id, refresh_token)
         
-        response = JSONResponse(content={'userId': user_id, 'access_token': access_token, 'refresh_token': refresh_token})
+        response = JSONResponse(content={
+            'userId': user_id,
+            'access_token': access_token,
+            'refresh_token': refresh_token
+        })
+        
         return response
 
 
@@ -39,10 +47,18 @@ def user_login(user: LoginRequest) -> JSONResponse:
         refresh_token = signJWT(user_id, 3600)
         auth_service.add_refresh_to_db(user_id, refresh_token)
             
-        response = JSONResponse(content={'userId': user_id, 'access_token': access_token, 'refresh_token': refresh_token})
+        response = JSONResponse(content={
+            'userId': user_id,
+            'access_token': access_token,
+            'refresh_token': refresh_token
+        })
+        
         return response
     else:
-       raise HTTPException(status_code=401, detail="Wrong login details!")
+       raise HTTPException(
+           status_code=401,
+           detail="Wrong login details!"
+        )
 
 
 @router.post('/refresh')

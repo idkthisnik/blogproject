@@ -21,28 +21,44 @@ post_service = PostService()
 def get_post(post_id: int) -> PostResponse:
     result = post_service.get_post(post_id)
     if not result:
-        raise HTTPException(status_code=404, detail='Oops! Post not found!')
+        raise HTTPException(
+            status_code=404,
+            detail='Oops! Post not found!'
+        )
+        
     return result
 
 
 @router.get('/posts/', response_model=Page[Post])
-def get_posts(sorted: str = Query(default=None, description='Sorting criteria')) -> Page[Post]:
+def get_posts(
+    sorted: str = Query(default=None, description='Sorting criteria')
+) -> Page[Post]:
+
     result = post_service.get_posts(sorted)
     if not result:
-        raise HTTPException(status_code=404, detail='Oops! Posts not found!')
+        raise HTTPException(
+            status_code=404,
+            detail='Oops! Posts not found!'
+        )
+        
     return paginate(result)
 
 @router.post('/posts/create')
 def create_post(data: CreatePostRequest) -> dict:
     if len(data.post_text) == 0:
-        raise HTTPException(status_code=422, detail="Comment can not be empty object :D") 
+        raise HTTPException(
+            status_code=422,
+            detail="Comment can not be empty object :D"
+        )
+         
     result = post_service.create_post(data)
     return result
 
 @router.get('/posts/{post_id}/postRatedByUser')
 def get_post_rated_by_user(
-        user_post_info: Annotated[GetPostRatedByUser, Depends()]
-    ) -> PostRatedByUserResponse:
+    user_post_info: Annotated[GetPostRatedByUser, Depends()]
+) -> PostRatedByUserResponse:
+    
     result = post_service.post_rated_by_user(user_post_info)
     return result
 

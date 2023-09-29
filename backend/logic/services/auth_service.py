@@ -17,7 +17,12 @@ class AuthService():
             return None
         else:
             salt = h_s.generate_salt()
-            hashed_password = h_s.password_hasher(info.entered_password, salt)
+            
+            hashed_password = h_s.password_hasher(
+                info.entered_password,
+                salt
+            )
+            
             updated_info = RegistrationRequestToDB(
                 username=info.username,
                 password=hashed_password,
@@ -30,7 +35,12 @@ class AuthService():
         user_salt = u_c.get_salt(info.username)
         if user_salt:
             user_salt = user_salt.encode()
-            hashed_password = h_s.password_hasher(info.entered_password, user_salt)
+            
+            hashed_password = h_s.password_hasher(
+                info.entered_password,
+                user_salt
+            )
+            
             updated_info = LoginRequestToDB(
                 username=info.username,
                 password=hashed_password

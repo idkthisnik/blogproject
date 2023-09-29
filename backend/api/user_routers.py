@@ -14,7 +14,11 @@ userprofile_service = UserProfileService()
 def get_user_data(user_id: int) -> UserDataResponse:
     result = userprofile_service.get_user_data(user_id)
     if result is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+        
     return result
 
 @router.get('/users')
@@ -22,5 +26,9 @@ def get_users() -> List[dict]:
     result = userprofile_service.get_users()
     print(result)
     if result is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+        
     return result

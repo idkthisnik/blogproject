@@ -18,9 +18,12 @@ class UserProfileService():
         responsedb = u_c.get_user_by_id(user_id)
         profile_page = u_c.get_current_profile_image(user_id)
         if responsedb:
-            user_data = {'login': responsedb['login'], 'profile_page': f"{os.environ['FASTAPI_DOMAIN']}/static/images/{profile_page}"}
-            user_data['rating'] = p_r_c.get_user_total_posts_rating(user_id
-                              ) + c_r_c.get_user_total_comments_rating(user_id)
+            user_data = {
+                'login': responsedb['login'],
+                'profile_page': f"{os.environ['FASTAPI_DOMAIN']}/static/images/{profile_page}"
+            }
+            user_data['rating'] = sum(p_r_c.get_user_total_posts_rating(user_id))\
+                                + sum(c_r_c.get_user_total_comments_rating(user_id))
             user_data['subscriptions'] = s_c.get_subscriptions_count(user_id) 
             user_data['subscribers'] = s_c.get_subscribers_count(user_id)
         

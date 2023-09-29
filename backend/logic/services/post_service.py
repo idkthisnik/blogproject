@@ -28,7 +28,7 @@ class PostService():
         if post:
             post['post_creator'] = u_c.get_login_by_id(post['post_creator_id'])
             post['comments_count'] = c_c.get_comments_count_for_post(post['post_id'])
-            post['post_rating'] = p_r_c.get_post_total_rating(post['post_id'])
+            post['post_rating'] = sum(p_r_c.get_post_total_rating(post['post_id']))
             return PostResponse(post=post)
         else:
             return post
@@ -44,7 +44,7 @@ class PostService():
             for post in posts:
                 post['post_creator'] = u_c.get_login_by_id(post['post_creator_id'])
                 post['comments_count'] = c_c.get_comments_count_for_post(post['post_id'])
-                post['post_rating'] = p_r_c.get_post_total_rating(post['post_id'])
+                post['post_rating'] = sum(p_r_c.get_post_total_rating(post['post_id']))
                 result.append(Post(**post))
                 
             return result
@@ -55,11 +55,21 @@ class PostService():
         result['post_creator'] = u_c.get_login_by_id(result['post_creator_id'])
         return result
     
-    def post_rated_by_user(self, user_post_info: GetPostRatedByUser) -> PostRatedByUserResponse:
+    def post_rated_by_user(
+        self,
+        user_post_info: GetPostRatedByUser
+    ) -> PostRatedByUserResponse:
+    
         response = PostRatedByUserResponse()
-        if p_r_c.check_post_rating_existence(user_post_info.post_id, user_post_info.user_id):
+        if p_r_c.check_post_rating_existence(
+            user_post_info.post_id,
+            user_post_info.user_id
+        ):
             response.rating_existence = True
-            response.rating_value = p_r_c.get_post_rating_value(user_post_info.post_id, user_post_info.user_id)
+            response.rating_value = p_r_c.get_post_rating_value(
+                                        user_post_info.post_id,
+                                        user_post_info.user_id
+                                    )
         else:
             response.rating_existence = False
 
@@ -79,7 +89,10 @@ class PostService():
             rating_value=rate_table[rate_info.rating_value]
         )
         
-        rate_existence = p_r_c.check_post_rating_existence(updated_rate_info.post_id, updated_rate_info.user_id)
+        rate_existence = p_r_c.check_post_rating_existence(
+            updated_rate_info.post_id,
+            updated_rate_info.user_id
+        )
         
         if rate_existence:
             if not p_r_c.check_post_rating_by_value(updated_rate_info):

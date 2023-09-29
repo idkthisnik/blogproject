@@ -38,10 +38,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-routers = (auth_router, post_router,
-           comment_router, subscriptions_router,
-           user_router, settings_router
-            )
+routers = (
+    auth_router, post_router,
+    comment_router, subscriptions_router,
+    user_router, settings_router
+)
 
 for r in routers:
     app.include_router(r)

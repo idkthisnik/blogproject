@@ -17,48 +17,62 @@ class SubscriptionsCrud():
 
     @Sessioner.dbconnect
     def get_subscribers(self, user_id: int, session) -> List[int]:
-        result = [user.SubscriberID 
-                  for user
-                  in session.query(Subscriptions).filter(
-                                                     Subscriptions.AccountID==user_id
-                                                ).all()
+        result = [
+            user.SubscriberID 
+            for user
+            in session.query(Subscriptions)\
+                      .filter(Subscriptions.AccountID==user_id)\
+                      .all()
         ]
         return result
     
     @Sessioner.dbconnect
     def get_subscriptions(self, user_id: int, session) -> List[int]:
-        result = [user.AccountID
-                  for user
-                  in session.query(Subscriptions).filter(
-                                                     Subscriptions.SubscriberID==user_id
-                                                ).all()
+        result = [
+            user.AccountID
+            for user
+            in session.query(Subscriptions)\
+                      .filter(Subscriptions.SubscriberID==user_id)\
+                      .all()
         ]
         return result 
        
     @Sessioner.dbconnect
-    def get_subscription_existence(self, data: FollowUnfollowRequest, session) -> bool:
-        query = session.query(Subscriptions).filter(
-                                                Subscriptions.AccountID==data.user_id,
-                                                Subscriptions.SubscriberID==data.subscriber_id
-                                            ).first()
+    def get_subscription_existence(
+        self,
+        data: FollowUnfollowRequest,
+        session
+    ) -> bool:
+        
+        query = session.query(Subscriptions)\
+                       .filter(
+                           Subscriptions.AccountID==data.user_id,
+                           Subscriptions.SubscriberID==data.subscriber_id
+                        )\
+                       .first()
         return True if query else False
 
     @Sessioner.dbconnect
     def get_subscriptions_count(self, user_id: int, session) -> int:
-        return session.query(Subscriptions).filter(
-                                               Subscriptions.SubscriberID==user_id
-                                          ).count()
+        return session.query(Subscriptions)\
+                      .filter(Subscriptions.SubscriberID==user_id)\
+                      .count()
             
     @Sessioner.dbconnect
     def get_subscribers_count(self, user_id: int, session) -> int:
-        return session.query(Subscriptions).filter(
-                                               Subscriptions.AccountID==user_id
-                                          ).count()        
+        return session.query(Subscriptions)\
+                      .filter(Subscriptions.AccountID==user_id)\
+                      .count()        
 
     @Sessioner.dbconnect
     def delete_subscription(self, data: FollowUnfollowRequest, session) -> None:
-        subscribe_to_delete = session.query(Subscriptions).filter(
+        subscribe_to_delete = session.query(
+            Subscriptions
+        )\
+        .filter(
             Subscriptions.AccountID==data.user_id,
             Subscriptions.SubscriberID==data.subscriber_id
-        ).first()
+        )\
+        .first()
+        
         session.delete(subscribe_to_delete)

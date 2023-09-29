@@ -17,12 +17,16 @@ class CommentsCrud():
             CreatorCommentID=data.user_id, PostParentID=data.post_id,
             text=data.comment_text, time=datetime.now()
         )
+        
         session.add(comment)
-        return session.query(Comments).filter(
-                                            Comments.CreatorCommentID==data.user_id,
-                                            Comments.PostParentID==data.post_id,
-                                            Comments.text==data.comment_text
-                                        ).first().CommentID
+        
+        result = session.query(Comments).filter(
+            Comments.CreatorCommentID==data.user_id,
+            Comments.PostParentID==data.post_id,
+            Comments.text==data.comment_text
+        ).first().CommentID
+        
+        return result
 
     @Sessioner.dbconnect
     def get_comment(self, comment_id: int, session) -> dict:
@@ -43,33 +47,47 @@ class CommentsCrud():
             'comment_time': comment.time
           } 
         for comment
-        in session.query(Comments).filter(Comments.PostParentID==post_id)
-                                  .order_by(desc(Comments.time))
-                                  .all()]
+        in session.query(Comments)\
+            .filter(Comments.PostParentID==post_id)\
+            .order_by(desc(Comments.time))\
+            .all()]
+        
         return result
 
     @Sessioner.dbconnect
     def get_comments_count_for_post(self, post_id: int, session) -> int:
-        return session.query(Comments).filter(Comments.PostParentID==post_id).count()
-    
+        result = session.query(Comments)\
+                        .filter(Comments.PostParentID==post_id)\
+                        .count()
+        return result
+                    
     @Sessioner.dbconnect
     def get_comments_ids_to_delete(self, post_id: int, session) -> List[int]:
-        query = session.query(Comments).filter(Comments.PostParentID==post_id).all()
+        query = session.query(Comments)\
+                        .filter(Comments.PostParentID==post_id)\
+                        .all()
         comments_deleted_id = [comment.CommentID for comment in query]
         return comments_deleted_id
 
     @Sessioner.dbconnect
     def update_comment(self, data: UpdateCommentRequest, session) -> None:
-        session.query(Comments).filter(Comments.CommentID==data.comment_id,
-                                       Comments.CreatorCommentID==data.user_id
-                              ).update({Comments.text: data.new_text})
+        session.query(Comments)\
+               .filter(
+                   Comments.CommentID==data.comment_id,
+                   Comments.CreatorCommentID==data.user_id
+                )\
+               .update({Comments.text: data.new_text})
 
     @Sessioner.dbconnect
     def delete_comment(self, data: DeleteCommentRequest, session) -> None:
-        session.delete(session.query(Comments).filter(Comments.CommentID==data.comment_id
-                                             ).first()
+        session.delete(
+            session.query(Comments)\
+                   .filter(Comments.CommentID==data.comment_id)\
+                   .first()
         )
     
     @Sessioner.dbconnect
     def delete_all_comments_for_post(self, post_id: int, session) -> None:
-        session.query(Comments).filter(Comments.PostParentID==post_id).delete()
+        session.query(Comments)\
+               .filter(Comments.PostParentID==post_id)\
+               .delete()

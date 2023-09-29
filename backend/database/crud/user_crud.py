@@ -13,7 +13,13 @@ from logic.dtos.requests.auth.auth_request import LoginRequestToDB, Registration
 class LoginPasswordVerify():
     @Sessioner.dbconnect
     def login_password_verify(self, data, session) -> bool:
-        query = session.query(Users).filter(Users.login==data.login, Users.password==data.password).first()
+        query = session.query(Users)\
+                       .filter(
+                           Users.login==data.login,
+                           Users.password==data.password
+                        )\
+                       .first()
+                       
         return True if query else False
 
 
@@ -21,15 +27,21 @@ class UserCrud():
     ####Global user crud####
     @Sessioner.dbconnect
     def auth_user(self, data: LoginRequestToDB, session) -> bool:
-        query = session.query(Users).filter(
-                                        Users.login==data.username,
-                                        Users.password==data.password
-                                   ).first()
+        query = session.query(Users)\
+                       .filter(
+                           Users.login==data.username,
+                           Users.password==data.password
+                        )\
+                       .first()
+                       
         return True if query else False
 
     @Sessioner.dbconnect
     def delete_user(self, data: DeleteProfileRequest, session) -> None:
-        user_to_delete = session.query(Users).filter(Users.login==data.login).first()
+        user_to_delete = session.query(Users)\
+                                .filter(Users.login==data.login)\
+                                .first()
+                                
         session.delete(user_to_delete)
         
     ####Login and ID crud####
@@ -45,11 +57,17 @@ class UserCrud():
                 profile_image="default.png"
             )
         )
-        return session.query(Users).filter(Users.login==data.username).first().UserID
+        return session.query(Users)\
+                      .filter(Users.login==data.username)\
+                      .first()\
+                      .UserID
     
     @Sessioner.dbconnect
     def check_user_existence(self, login: str, session) -> bool:   
-        query = session.query(Users).filter(Users.login==login).first()
+        query = session.query(Users)\
+                       .filter(Users.login==login)\
+                       .first()
+                       
         return True if query else False
     
     @Sessioner.dbconnect
@@ -60,6 +78,7 @@ class UserCrud():
                 'user_id': user.UserID,
                 'login': user.login
             })
+            
         return result if result else None
         
     @Sessioner.dbconnect
@@ -76,40 +95,35 @@ class UserCrud():
     
     @Sessioner.dbconnect
     def get_user_id_by_login(self, login: str, session) -> int:
-        return session.query(Users).filter(Users.login==login).first().UserID
+        return session.query(Users)\
+                      .filter(Users.login==login)\
+                      .first()\
+                      .UserID
     
     @Sessioner.dbconnect
     def update_login(self, data: UpdateLoginRequest, session) -> None:
-        session.query(Users).filter(
-                                Users.login==data.login
-                           ).update(
-                               {Users.login: data.new_login}
-        )
+        session.query(Users)\
+               .filter(Users.login==data.login)\
+               .update({Users.login: data.new_login})
             
     @Sessioner.dbconnect
     def update_password(self, data: UpdatePasswordRequestToDB, session) -> None:
-        session.query(Users).filter(
-                                Users.login==data.login
-                            ).update(
-                                {Users.password: data.new_password}
-        )
+        session.query(Users)\
+               .filter(Users.login==data.login)\
+               .update({Users.password: data.new_password})
 
     @Sessioner.dbconnect
     def update_email(self, data: UpdateEmailRequest, session) -> None:
-        session.query(Users).filter(
-                                Users.login==data.login
-                           ).update(
-                               {Users.email: data.new_email}
-        )
+        session.query(Users)\
+               .filter(Users.login==data.login)\
+               .update({Users.email: data.new_email})
     
     ####Salt crud####
     @Sessioner.dbconnect
     def add_salt(self, user_id: int, salt: str, session) -> None:
-        session.query(Users).filter(
-                                Users.UserID==user_id
-                           ).update(
-                                {Users.salt: salt}
-        )
+        session.query(Users)\
+               .filter(Users.UserID==user_id)\
+               .update({Users.salt: salt})
         
     @Sessioner.dbconnect
     def get_salt(self, username: str, session) -> str:
@@ -119,29 +133,26 @@ class UserCrud():
     ####Refresh crud####
     @Sessioner.dbconnect
     def add_refresh(self, user_id: int, refresh: str, session):
-        session.query(Users).filter(
-                                Users.UserID==user_id
-                           ).update(
-                               {Users.refresh: refresh}
-        )   
+        session.query(Users)\
+               .filter(Users.UserID==user_id)\
+               .update({Users.refresh: refresh})   
         
     @Sessioner.dbconnect
     def delete_refresh(self, user_id: int, session):
-        session.query(Users).filter(
-                                Users.UserID==user_id
-                           ).update(
-                               {Users.refresh: None}
-        )
+        session.query(Users)\
+               .filter(Users.UserID==user_id)\
+               .update({Users.refresh: None})
                            
     ####Profile page crud####
     @Sessioner.dbconnect
     def get_current_profile_image(self, user_id: int, session) -> str:
-        return session.query(Users).filter(Users.UserID==user_id).first().profile_image
+        return session.query(Users)\
+                      .filter(Users.UserID==user_id)\
+                      .first()\
+                      .profile_image
     
     @Sessioner.dbconnect
     def set_new_profile_image(self, data, session) -> None:
-        session.query(Users).filter(
-                                Users.UserID==data.user_id
-                           ).update(
-                               {Users.profile_image: data.profile_image}
-        )
+        session.query(Users)\
+               .filter(Users.UserID==data.user_id)\
+               .update({Users.profile_image: data.profile_image})

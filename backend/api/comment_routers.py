@@ -24,15 +24,21 @@ def get_comments(post_id) -> Page[Comment]:
 @router.post('/posts/{post_id}/create_comment')
 def create_comment(data: CreateCommentRequest) -> dict:
     if len(data.comment_text) == 0:
-        raise HTTPException(status_code=422, detail="Comment can not be empty object :D") 
+        raise HTTPException(
+            status_code=422,
+            detail="Comment can not be empty object :D"
+        )
+         
     result = comment_service.create_comment(data)
     return result
 
 @router.get('/posts/{post_id}/commentRatedByUser')
 def get_comment_rated_by_user(
-        user_comment_info: Annotated[GetCommentRatedByUser, Depends()]
-    ) -> CommentRatedByUserResponse:
+    user_comment_info: Annotated[GetCommentRatedByUser, Depends()]
+) -> CommentRatedByUserResponse:
+    
     result = comment_service.comment_rated_by_user(user_comment_info)
+    
     return result
 
 @router.post('/posts/{post_id}/{comment_id}')

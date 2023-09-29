@@ -28,7 +28,9 @@ class CommentService():
         result = []
         for comment in comments:
             comment['comment_creator'] = u_c.get_login_by_id(comment['creator_id'])
-            comment['comment_rating'] = c_r_c.get_comment_total_rating(comment['comment_id'])
+            comment['comment_rating'] = sum(
+                c_r_c.get_comment_total_rating(comment['comment_id'])
+            )
                 
             result.append(Comment(**comment))
                 
@@ -60,11 +62,20 @@ class CommentService():
 
         return True
 
-    def comment_rated_by_user(self, user_comment_info: GetCommentRatedByUser) -> CommentRatedByUserResponse:
+    def comment_rated_by_user(
+        self,
+        user_comment_info: GetCommentRatedByUser
+    ) -> CommentRatedByUserResponse:
+    
         response = CommentRatedByUserResponse()
         if c_r_c.check_comment_rating_existence(user_comment_info):
             response.rating_existence = True
-            response.rating_value = c_r_c.get_comment_rating_value(user_comment_info.comment_id, user_comment_info.user_id)
+            
+            response.rating_value = c_r_c.get_comment_rating_value(
+                user_comment_info.comment_id,
+                user_comment_info.user_id
+            )
+            
         else:
             response.rating_existence = False
 

@@ -46,8 +46,15 @@ class SettingsService():
             salt = salt.encode()
             new_salt = hash_service.generate_salt()
             
-            hashed_password = hash_service.password_hasher(data.password, salt)
-            new_hashed_password = hash_service.password_hasher(data.new_password, new_salt)
+            hashed_password = hash_service.password_hasher(
+                data.password,
+                salt
+            )
+            
+            new_hashed_password = hash_service.password_hasher(
+                data.new_password,
+                new_salt
+            )
             
             updated_info = UpdatePasswordRequestToDB(
                 login=data.login,
@@ -116,5 +123,10 @@ class SettingsService():
             return False
         else:
             os.remove('./static/images/' + data.profile_image)
-            new_data = DeleteProfilePageRequest(user_id=data.user_id, profile_image='default.png')
+            
+            new_data = DeleteProfilePageRequest(
+                user_id=data.user_id,
+                profile_image='default.png'
+            )
+            
             users_crud.set_new_profile_image(new_data)
