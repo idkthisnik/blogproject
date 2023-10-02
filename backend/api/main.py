@@ -20,7 +20,10 @@ from api.settings_routers import router as settings_router
 #disable fastapi_pagination console messages 
 disable_installed_extensions_check()
 
-app = FastAPI(title='Blog')
+app = FastAPI(
+    title='Blog',
+    summary="Backend for BLOG project based on MS SQL Database."
+)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

@@ -13,10 +13,13 @@ from logic.dtos.requests.settings.changeprofilepage_request import ChangeProfile
 
 
 settings_service = SettingsService()
-router = APIRouter()
+router = APIRouter(
+    prefix="/my_profile/settings",
+    tags=["settings"]
+)
 
 
-@router.put('/my_profile/settings/change_login')
+@router.put('/change_login')
 def change_login(data: UpdateLoginRequest) -> bool | None:
     result = settings_service.update_login(data)
     if result is None:
@@ -27,7 +30,7 @@ def change_login(data: UpdateLoginRequest) -> bool | None:
         
     return result
 
-@router.put('/my_profile/settings/change_password')
+@router.put('/change_password')
 def change_password(data: UpdatePasswordRequest) -> bool | None:
     result = settings_service.update_password(data)
     if result is None:
@@ -38,7 +41,7 @@ def change_password(data: UpdatePasswordRequest) -> bool | None:
         
     return result
 
-@router.put('/my_profile/settings/change_email')
+@router.put('/change_email')
 def change_email(data: UpdateEmailRequest) -> bool | None:
     result = settings_service.update_email(data)
     if result is None:
@@ -49,7 +52,7 @@ def change_email(data: UpdateEmailRequest) -> bool | None:
         
     return result
 
-@router.delete('/my_profile/settings/delete_account')
+@router.delete('/delete_account')
 def delete_profile(data: DeleteProfileRequest) -> bool | None:
     result = settings_service.delete_account(data)
     if result is None:
@@ -60,7 +63,7 @@ def delete_profile(data: DeleteProfileRequest) -> bool | None:
         
     return result
 
-@router.post("/my_profile/uploadimage/")
+@router.post("/uploadimage")
 async def create_upload_file(user_id: int, file: UploadFile) -> dict:
     file_format = file.filename.split('.')[1]
     if file_format not in ['png', 'jpg', 'jpeg']:
@@ -94,6 +97,6 @@ async def create_upload_file(user_id: int, file: UploadFile) -> dict:
     
     return {'status': 200, 'file': file_url}
 
-@router.delete("/my_profile/deleteimage/")
+@router.delete("/deleteimage")
 def delete_profile_image(data: DeleteProfilePageRequest):
     return settings_service.delete_profile_image(data)

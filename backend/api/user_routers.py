@@ -5,7 +5,7 @@ from fastapi import HTTPException
 from logic.services.userpage_service import UserProfileService
 from logic.dtos.responses.profile.userdata_response import UserDataResponse
 
-router = APIRouter()
+router = APIRouter(tags=["user"])
 
 userprofile_service = UserProfileService()
 

@@ -12,7 +12,7 @@ from logic.dtos.requests.auth.auth_request import (
 from auth.auth_handler import signJWT, decodeJWT
 
 auth_service = AuthService()
-router = APIRouter()
+router = APIRouter(tags=["auth"])
 
 
 @router.post('/registration')

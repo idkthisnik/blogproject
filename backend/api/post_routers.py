@@ -13,11 +13,14 @@ from logic.dtos.requests.rating.get_post_rated_by_user_request import GetPostRat
 from logic.dtos.responses.rating.post_rated_by_user_response import PostRatedByUserResponse
 
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/posts",
+    tags=["posts"]
+)
 
 post_service = PostService()
 
-@router.get('/posts/{post_id}/', response_model=PostResponse)
+@router.get('/{post_id}/', response_model=PostResponse)
 def get_post(post_id: int) -> PostResponse:
     result = post_service.get_post(post_id)
     if not result:
@@ -29,7 +32,7 @@ def get_post(post_id: int) -> PostResponse:
     return result
 
 
-@router.get('/posts/', response_model=Page[Post])
+@router.get('/', response_model=Page[Post])
 def get_posts(
     sorted: str = Query(default=None, description='Sorting criteria')
 ) -> Page[Post]:
@@ -43,7 +46,7 @@ def get_posts(
         
     return paginate(result)
 
-@router.post('/posts/create')
+@router.post('/create')
 def create_post(data: CreatePostRequest) -> dict:
     if len(data.post_text) == 0:
         raise HTTPException(
@@ -54,7 +57,7 @@ def create_post(data: CreatePostRequest) -> dict:
     result = post_service.create_post(data)
     return result
 
-@router.get('/posts/{post_id}/postRatedByUser')
+@router.get('/{post_id}/postRatedByUser')
 def get_post_rated_by_user(
     user_post_info: Annotated[GetPostRatedByUser, Depends()]
 ) -> PostRatedByUserResponse:
@@ -62,17 +65,17 @@ def get_post_rated_by_user(
     result = post_service.post_rated_by_user(user_post_info)
     return result
 
-@router.post('/posts/{post_id}/rate')
+@router.post('/{post_id}/rate')
 def rate_post(rate_info: RatePostRequest) -> bool:
     result = post_service.rate_post(rate_info)
     return result
 
-@router.put('/posts/{post_id}/update')
+@router.put('/{post_id}/update')
 def update_post(info: UpdatePostRequest) -> None:
     result = post_service.update_my_post(info)
     return result
 
-@router.delete('/posts/{post_id}/delete')
+@router.delete('/{post_id}/delete')
 def delete_post(info: DeletePostRequest) -> str:
     result = post_service.delete_my_post(info)
     return result
